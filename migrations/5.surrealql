@@ -1,0 +1,48 @@
+-- Create language model (Claude)
+CREATE model CONTENT {
+    name: "claude-3-7-sonnet-20250219",
+    provider: "anthropic",
+    type: "language",
+    created: time::format(time::now(), "%Y-%m-%d %H:%M:%S"),
+    updated: time::format(time::now(), "%Y-%m-%d %H:%M:%S")
+};
+
+-- Create embedding model (OpenAI)
+CREATE model CONTENT {
+    name: "text-embedding-3-small",
+    provider: "openai",
+    type: "embedding",
+    created: time::format(time::now(), "%Y-%m-%d %H:%M:%S"),
+    updated: time::format(time::now(), "%Y-%m-%d %H:%M:%S")
+};
+
+-- Create speech to text model (OpenAI)
+CREATE model CONTENT {
+    name: "whisper-1",
+    provider: "openai",
+    type: "speech_to_text",
+    created: time::format(time::now(), "%Y-%m-%d %H:%M:%S"),
+    updated: time::format(time::now(), "%Y-%m-%d %H:%M:%S")
+};
+
+
+
+-- Set up default models configuration
+LET $language_model = (SELECT id FROM model WHERE name = "claude-3-7-sonnet-20250219" AND provider = "anthropic" LIMIT 1)[0].id;
+LET $embedding_model = (SELECT id FROM model WHERE name = "text-embedding-3-small" AND provider = "openai" LIMIT 1)[0].id;
+LET $speech_model = (SELECT id FROM model WHERE name = "whisper-1" AND provider = "openai" LIMIT 1)[0].id;
+
+UPSERT open_notebook:default_models CONTENT {
+    default_chat_model: $language_model,
+    default_transformation_model: $language_model,
+    large_context_model: $language_model,
+    default_embedding_model: $embedding_model,
+    default_speech_to_text_model: $speech_model
+};
+
+-- Update default transformations record with source insights types
+UPSERT open_notebook:default_transformations CONTENT {
+    source_insights: ["Summarize"]
+};
+
+

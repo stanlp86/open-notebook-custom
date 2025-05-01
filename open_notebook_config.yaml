@@ -1,0 +1,26 @@
+
+youtube_transcripts:
+  preferred_languages:
+    - en
+    - pt
+    - es
+    - de
+    - nl
+    - en-GB
+    - fr
+    - de
+    - hi
+    - ja
+suggested_models:
+  openai:
+    language:
+      - gpt-4-turbo
+    embedding:
+      - text-embedding-3-small
+    text_to_speech:
+      - tts-1-hd
+    speech_to_text:
+      - whisper-1
+  anthropic:
+    language:
+      - claude-3-haiku-20240307

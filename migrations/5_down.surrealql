@@ -1,0 +1,7 @@
+-- Delete default models configuration
+DELETE open_notebook:default_models;
+
+-- Delete model records
+DELETE model WHERE name = "whisper-1" AND provider = "openai" AND type = "speech_to_text";
+DELETE model WHERE name = "text-embedding-3-small" AND provider = "openai" AND type = "embedding";
+DELETE model WHERE name = "claude-3-7-sonnet-20250219" AND provider = "anthropic" AND type = "language";
