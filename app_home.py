@@ -17,10 +17,10 @@ import json
 import pandas as pd
 
 
-token_url = "https://gprd-auth.abbvienet.com:8110/auth.service/auth/token"
+token_url = "https://token.site"
 response = requests.get(
     token_url,
-    auth=HTTPBasicAuth(os.getenv("USERNAME"), os.getenv("ABV_PWD")),
+    auth=HTTPBasicAuth(os.getenv("username"), os.getenv("pwd")),
     verify=False,
 )
 auth_token = ""
